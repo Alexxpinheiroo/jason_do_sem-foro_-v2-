@@ -27,6 +27,7 @@ export function About() {
           alt="Jason Heart Hands" 
           className="w-[400px] md:w-[600px]"
           referrerPolicy="no-referrer"
+          loading="lazy"
         />
       </motion.div>
 

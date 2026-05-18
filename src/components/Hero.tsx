@@ -30,6 +30,7 @@ export function Hero() {
           alt="Jason Selfie" 
           className="w-[300px] md:w-[500px] opacity-20 hover:opacity-40 transition-opacity"
           referrerPolicy="no-referrer"
+          loading="lazy"
         />
       </motion.div>
       <motion.div 
@@ -49,6 +50,7 @@ export function Hero() {
           alt="Branding Asset" 
           className="w-[200px] md:w-[300px] grayscale brightness-50"
           referrerPolicy="no-referrer"
+          loading="lazy"
         />
       </motion.div>
 
@@ -94,7 +96,7 @@ export function Hero() {
               render={<a href="#contato" />}
               className="px-8 py-4 bg-primary text-white font-bold uppercase tracking-widest text-sm hover:translate-x-1 transition-transform inline-block text-center cursor-pointer"
             >
-              Agenda 2025
+              Agendar Evento
             </Button>
             <Button
               nativeButton={false}
