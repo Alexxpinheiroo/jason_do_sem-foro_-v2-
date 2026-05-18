@@ -1,14 +1,17 @@
+import { Suspense, lazy } from "react";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
-import { About } from "./components/About";
-import { Services } from "./components/Services";
-import { Testimonials } from "./components/Testimonials";
-import { Gallery } from "./components/Gallery";
-import { Contact } from "./components/Contact";
-import { Footer } from "./components/Footer";
 import { BloodDrips } from "./components/BloodDrips";
 import { AudioControl } from "./components/AudioControl";
 import { Loader } from "./components/Loader";
+
+// Lazy load non-critical components
+const About = lazy(() => import("./components/About").then(m => ({ default: m.About })));
+const Services = lazy(() => import("./components/Services").then(m => ({ default: m.Services })));
+const Testimonials = lazy(() => import("./components/Testimonials").then(m => ({ default: m.Testimonials })));
+const Gallery = lazy(() => import("./components/Gallery").then(m => ({ default: m.Gallery })));
+const Contact = lazy(() => import("./components/Contact").then(m => ({ default: m.Contact })));
+const Footer = lazy(() => import("./components/Footer").then(m => ({ default: m.Footer })));
 
 export default function App() {
   return (
@@ -19,13 +22,17 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <About />
-        <Gallery />
-        <Services />
-        <Testimonials />
-        <Contact />
+        <Suspense fallback={<div className="h-20" />}>
+          <About />
+          <Gallery />
+          <Services />
+          <Testimonials />
+          <Contact />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }
