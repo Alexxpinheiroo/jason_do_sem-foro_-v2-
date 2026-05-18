@@ -45,12 +45,25 @@ export function Contact() {
           {/* Form Panel */}
           <div className="bg-zinc-900/50 p-12">
             <form onSubmit={handleSubmit} className="space-y-6">
-                <Input className="bg-black border-white/5 h-14 rounded-none" required placeholder="NOME" />
-                <Input type="email" className="bg-black border-white/5 h-14 rounded-none" required placeholder="EMAIL" />
-                <Textarea className="bg-black border-white/5 min-h-[150px] rounded-none" required placeholder="MENSAGEM" />
+                <Input 
+                  className="bg-black border-white/10 h-14 rounded-none px-6 text-[10px] font-black tracking-[0.2em] focus:border-primary focus:ring-0 focus:bg-black/80 transition-all duration-300 placeholder:text-muted-foreground/30" 
+                  required 
+                  placeholder="NOME" 
+                />
+                <Input 
+                  type="email" 
+                  className="bg-black border-white/10 h-14 rounded-none px-6 text-[10px] font-black tracking-[0.2em] focus:border-primary focus:ring-0 focus:bg-black/80 transition-all duration-300 placeholder:text-muted-foreground/30" 
+                  required 
+                  placeholder="EMAIL" 
+                />
+                <Textarea 
+                  className="bg-black border-white/10 min-h-[150px] rounded-none p-6 text-[10px] font-black tracking-[0.2em] focus:border-primary focus:ring-0 focus:bg-black/80 transition-all duration-300 placeholder:text-muted-foreground/30" 
+                  required 
+                  placeholder="MENSAGEM" 
+                />
                 <Button 
                     type="submit" 
-                    className="w-full bg-primary hover:bg-blood-light font-black uppercase tracking-[0.3em] h-16 rounded-none text-xs"
+                    className="w-full bg-primary hover:bg-blood-light font-black uppercase tracking-[0.4em] h-20 rounded-none text-xs transition-all hover:scale-[1.02] active:scale-[0.98] border border-white/10 hover:border-primary/50 shadow-xl hover:shadow-[0_0_30px_rgba(235,33,46,0.3)]"
                     disabled={isSubmitting}
                 >
                     {isSubmitting ? "ENVIANDO..." : "ENVIAR PROPOSTA"}

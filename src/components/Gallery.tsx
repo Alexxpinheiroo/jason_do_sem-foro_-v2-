@@ -34,6 +34,7 @@ export function Gallery() {
           </h2>
         </div>
 
+
         {/* Instagram Widget Integration */}
         <div className="w-full border border-white/5 bg-black p-4 md:p-8">
           <div className="w-full overflow-hidden min-h-[500px]">

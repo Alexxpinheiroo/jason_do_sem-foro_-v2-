@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { Ghost, ShieldAlert } from "lucide-react";
 import { useRef } from "react";
+import { Button } from "@base-ui/react/button";
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,15 +23,33 @@ export function Hero() {
       {/* Parallax Background Elements */}
       <motion.div 
         style={{ y: y1, opacity }}
-        className="absolute top-20 right-[10%] text-primary/5 -z-10 select-none"
+        className="absolute top-20 right-[5%] -z-10 select-none grayscale hover:grayscale-0 transition-all duration-500"
       >
-        <Ghost size={400} />
+        <img 
+          src="input_file_5.png" 
+          alt="Jason Selfie" 
+          className="w-[300px] md:w-[500px] opacity-20 hover:opacity-40 transition-opacity"
+          referrerPolicy="no-referrer"
+        />
       </motion.div>
       <motion.div 
         style={{ y: y2, opacity }}
         className="absolute bottom-20 left-[5%] text-primary/10 -z-10 select-none"
       >
-        <span className="text-[200px] font-black uppercase leading-none opacity-20">13</span>
+        <span className="text-[200px] font-black uppercase leading-none opacity-10">13</span>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 0.15, x: 0 }}
+        transition={{ delay: 0.5, duration: 1 }}
+        className="absolute bottom-10 right-[15%] -z-20 select-none pointer-events-none"
+      >
+        <img 
+          src="input_file_8.png" 
+          alt="Jason Dancing" 
+          className="w-[200px] md:w-[400px]"
+          referrerPolicy="no-referrer"
+        />
       </motion.div>
 
       {/* Left Pane - Huge Text */}
@@ -70,18 +89,18 @@ export function Hero() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <a
-              href="#contato"
-              className="px-8 py-4 bg-primary text-white font-bold uppercase tracking-widest text-sm hover:translate-x-1 transition-transform inline-block"
+            <Button
+              render={<a href="#contato" />}
+              className="px-8 py-4 bg-primary text-white font-bold uppercase tracking-widest text-sm hover:translate-x-1 transition-transform inline-block text-center cursor-pointer"
             >
               Agenda 2025
-            </a>
-            <a
-              href="#servicos"
-              className="px-8 py-4 border border-white/10 hover:border-primary text-foreground font-bold uppercase tracking-widest text-sm transition-colors inline-block"
+            </Button>
+            <Button
+              render={<a href="#servicos" />}
+              className="px-8 py-4 border border-white/10 hover:border-primary text-foreground font-bold uppercase tracking-widest text-sm transition-colors inline-block text-center cursor-pointer"
             >
               Nossos Serviços
-            </a>
+            </Button>
           </div>
         </motion.div>
       </div>

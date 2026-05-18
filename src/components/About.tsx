@@ -19,10 +19,15 @@ export function About() {
       className="py-24 px-6 border-b border-white/5 relative overflow-hidden"
     >
       <motion.div 
-        style={{ rotate, scale, opacity: 0.1 }}
-        className="absolute -top-20 -right-20 text-primary pointer-events-none -z-10"
+        style={{ rotate, scale, opacity: 0.15 }}
+        className="absolute -bottom-20 -right-20 pointer-events-none -z-10"
       >
-        <BookOpen size={400} />
+        <img 
+          src="input_file_6.png" 
+          alt="Jason Heart Hands" 
+          className="w-[400px] md:w-[600px]"
+          referrerPolicy="no-referrer"
+        />
       </motion.div>
 
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 relative z-10">

@@ -8,9 +8,36 @@ export function AudioControl() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Note: Most browsers block autoplay without interaction.
-    // We'll show a prompt or just let them click the icon.
-  }, []);
+    const attemptPlay = () => {
+      if (audioRef.current && !isPlaying) {
+        audioRef.current.play()
+          .then(() => {
+            setIsPlaying(true);
+            setShowPrompt(false);
+            window.removeEventListener("mousedown", attemptPlay);
+            window.removeEventListener("keydown", attemptPlay);
+            window.removeEventListener("touchstart", attemptPlay);
+          })
+          .catch(() => {
+            // Probably blocked by browser, wait for interaction
+          });
+      }
+    };
+
+    // Try immediately (might work if already interacted or browser allows)
+    attemptPlay();
+
+    // Listen for first real interaction
+    window.addEventListener("mousedown", attemptPlay);
+    window.addEventListener("keydown", attemptPlay);
+    window.addEventListener("touchstart", attemptPlay);
+
+    return () => {
+      window.removeEventListener("mousedown", attemptPlay);
+      window.removeEventListener("keydown", attemptPlay);
+      window.removeEventListener("touchstart", attemptPlay);
+    };
+  }, [isPlaying]);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
