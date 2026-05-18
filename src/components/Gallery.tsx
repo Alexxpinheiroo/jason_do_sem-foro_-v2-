@@ -35,17 +35,43 @@ export function Gallery() {
         </div>
 
 
-        {/* Instagram Widget Integration */}
-        <div className="w-full border border-white/5 bg-black p-4 md:p-8">
-          <div className="w-full overflow-hidden min-h-[500px]">
-             {/* Note: In a real environment, LightWidget would be configured to your specific ID */}
-             <iframe 
-               src="https://lightwidget.com/widgets/dllyjsmuaht_001.html" 
-               className="lightwidget-widget w-full border-none overflow-hidden min-h-[500px]"
-               style={{ width: '100%', border: 0, overflow: 'hidden' }}
-               title="Instagram Feed"
-             ></iframe>
-          </div>
+        {/* Instagram Widget Container */}
+        <div className="w-full space-y-8">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+                        <Instagram className="text-white" />
+                    </div>
+                    <div>
+                        <p className="font-black uppercase text-sm tracking-widest text-foreground">@jasondosemaforo</p>
+                        <p className="text-[10px] uppercase tracking-widest text-foreground/40">Siga os bastidores do terror</p>
+                    </div>
+                </div>
+                <a 
+                    href="https://www.instagram.com/jasondosemaforo/" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="px-8 py-3 border border-primary/20 hover:border-primary text-primary font-black uppercase tracking-[0.2em] text-[10px] transition-all hover:bg-primary/5"
+                >
+                    ABRIR NO APP
+                </a>
+            </div>
+
+            {/* AREA PARA COLAR O WIDGET (IFRAME OU SCRIPT) */}
+            <div className="w-full border border-white/5 bg-zinc-950/50 backdrop-blur-sm min-h-[600px] flex items-center justify-center p-4">
+                <div className="w-full h-full text-center">
+                    {/* 
+                        INSTRUÇÕES:
+                        Substitua este comentário ou o iframe abaixo pelo código do seu widget 
+                        (Elfsight, LightWidget, SnapWidget, etc.)
+                    */}
+                    <iframe 
+                      src="about:blank" 
+                      className="w-full border-none overflow-hidden min-h-[600px]"
+                      title="Instagram Feed Widget"
+                    ></iframe>
+                </div>
+            </div>
         </div>
 
         <div className="flex justify-end">

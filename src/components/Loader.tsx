@@ -1,5 +1,4 @@
 import { motion, AnimatePresence } from "motion/react";
-import { Ghost } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function Loader() {
@@ -18,6 +17,8 @@ export function Loader() {
     setIsVisible(false);
   };
 
+  const [imgError, setImgError] = useState(false);
+
   return (
     <AnimatePresence>
       {isVisible && (
@@ -25,10 +26,10 @@ export function Loader() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1, ease: "easeInOut" }}
-          className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center overflow-hidden"
+          className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center overflow-hidden text-white"
         >
-          {/* Static/Noise effect overlay */}
-          <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://media.giphy.com/media/oEI9uWUicGLeE/giphy.gif')] bg-repeat" />
+          {/* Grainy noise effect instead of broken Giphy */}
+          <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-zinc-800" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
           
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
@@ -43,7 +44,21 @@ export function Loader() {
             }}
             className="relative"
           >
-            <Ghost size={80} className="text-primary animate-pulse" />
+            {!imgError ? (
+              <img 
+                src="input_file_11.png" 
+                alt="Jason Mask" 
+                className="w-32 h-32 object-contain filter drop-shadow-[0_0_20px_rgba(204,0,0,0.6)] animate-pulse" 
+                referrerPolicy="no-referrer"
+                onError={() => setImgError(true)}
+              />
+            ) : (
+              <div className="w-24 h-24 flex items-center justify-center">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary animate-pulse">
+                  <path d="M9 10h.01"/><path d="M15 10h.01"/><path d="M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/>
+                </svg>
+              </div>
+            )}
             <motion.div 
               animate={{ 
                 opacity: [0, 1, 0, 1, 0.5, 1],

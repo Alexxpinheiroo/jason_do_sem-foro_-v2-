@@ -1,27 +1,33 @@
 import { useState, useEffect, useRef } from "react";
-import { Volume2, VolumeX } from "lucide-react";
+import { Volume2, VolumeX, Play, Pause } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 export function AudioControl() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showPrompt, setShowPrompt] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const autoplayTriggered = useRef(false);
 
   useEffect(() => {
     const attemptPlay = () => {
-      if (audioRef.current && !isPlaying) {
+      if (audioRef.current && !isPlaying && !autoplayTriggered.current) {
         audioRef.current.play()
           .then(() => {
             setIsPlaying(true);
+            autoplayTriggered.current = true;
             setShowPrompt(false);
-            window.removeEventListener("mousedown", attemptPlay);
-            window.removeEventListener("keydown", attemptPlay);
-            window.removeEventListener("touchstart", attemptPlay);
+            removeListeners();
           })
           .catch(() => {
             // Probably blocked by browser, wait for interaction
           });
       }
+    };
+
+    const removeListeners = () => {
+      window.removeEventListener("mousedown", attemptPlay);
+      window.removeEventListener("keydown", attemptPlay);
+      window.removeEventListener("touchstart", attemptPlay);
     };
 
     // Try immediately (might work if already interacted or browser allows)
@@ -33,21 +39,26 @@ export function AudioControl() {
     window.addEventListener("touchstart", attemptPlay);
 
     return () => {
-      window.removeEventListener("mousedown", attemptPlay);
-      window.removeEventListener("keydown", attemptPlay);
-      window.removeEventListener("touchstart", attemptPlay);
+      removeListeners();
     };
-  }, [isPlaying]);
+  }, []);
 
-  const togglePlay = () => {
+  const togglePlay = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (!audioRef.current) return;
 
     if (isPlaying) {
       audioRef.current.pause();
+      setIsPlaying(false);
     } else {
-      audioRef.current.play().catch(e => console.error("Playback failed:", e));
+      autoplayTriggered.current = true; // Block subsequent autoplay attempts
+      audioRef.current.play()
+        .then(() => setIsPlaying(true))
+        .catch(e => {
+          console.error("Playback failed:", e);
+          setIsPlaying(false);
+        });
     }
-    setIsPlaying(!isPlaying);
     setShowPrompt(false);
   };
 
@@ -72,7 +83,7 @@ export function AudioControl() {
         onClick={togglePlay}
         className="w-12 h-12 bg-secondary/80 backdrop-blur-md rounded-full flex items-center justify-center border border-primary/20 text-primary shadow-xl"
       >
-        {isPlaying ? <Volume2 size={20} /> : <VolumeX size={20} />}
+        {isPlaying ? <Pause size={20} /> : <Play size={20} className="ml-1" />}
       </motion.button>
 
       {/* Hidden Audio Element - Using a placeholder spooky sound URL if possible, otherwise just a stub */}

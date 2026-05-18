@@ -33,7 +33,12 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <a href="#inicio" className="flex items-center gap-4 group">
-          <div className="w-8 h-8 bg-primary flex items-center justify-center text-white font-black italic">J</div>
+          <img 
+            src="input_file_11.png" 
+            alt="Logo" 
+            className="w-10 h-10 object-contain filter group-hover:brightness-125 transition-all"
+            referrerPolicy="no-referrer"
+          />
           <span className="text-sm font-black tracking-[0.4em] uppercase text-foreground group-hover:text-primary transition-colors">
             Jason
           </span>

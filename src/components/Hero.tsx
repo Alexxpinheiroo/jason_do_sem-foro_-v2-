@@ -45,9 +45,9 @@ export function Hero() {
         className="absolute bottom-10 right-[15%] -z-20 select-none pointer-events-none"
       >
         <img 
-          src="input_file_8.png" 
-          alt="Jason Dancing" 
-          className="w-[200px] md:w-[400px]"
+          src="input_file_11.png" 
+          alt="Branding Asset" 
+          className="w-[200px] md:w-[300px] grayscale brightness-50"
           referrerPolicy="no-referrer"
         />
       </motion.div>
@@ -90,12 +90,14 @@ export function Hero() {
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <Button
+              nativeButton={false}
               render={<a href="#contato" />}
               className="px-8 py-4 bg-primary text-white font-bold uppercase tracking-widest text-sm hover:translate-x-1 transition-transform inline-block text-center cursor-pointer"
             >
               Agenda 2025
             </Button>
             <Button
+              nativeButton={false}
               render={<a href="#servicos" />}
               className="px-8 py-4 border border-white/10 hover:border-primary text-foreground font-bold uppercase tracking-widest text-sm transition-colors inline-block text-center cursor-pointer"
             >
