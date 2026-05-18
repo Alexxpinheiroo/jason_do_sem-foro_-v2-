@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "motion/react";
-import { Camera, Instagram } from "lucide-react";
-import { useRef } from "react";
+import { Instagram } from "lucide-react";
+import { useRef, useEffect } from "react";
 
 export function Gallery() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -8,6 +8,21 @@ export function Gallery() {
     target: containerRef,
     offset: ["start end", "end start"],
   });
+
+  useEffect(() => {
+    // Carregar script da Elfsight de forma assíncrona
+    const script = document.createElement("script");
+    script.src = "https://elfsightcdn.com/platform.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      // Limpeza opcional (embora geralmente deixemos scripts de widget carregados)
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
 
   const xOffset = useTransform(scrollYProgress, [0, 1], [-100, 100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
@@ -57,19 +72,15 @@ export function Gallery() {
                 </a>
             </div>
 
-            {/* AREA PARA COLAR O WIDGET (IFRAME OU SCRIPT) */}
-            <div className="w-full border border-white/5 bg-zinc-950/50 backdrop-blur-sm min-h-[600px] flex items-center justify-center p-4">
-                <div className="w-full h-full text-center">
-                    {/* 
-                        INSTRUÇÕES:
-                        Substitua este comentário ou o iframe abaixo pelo código do seu widget 
-                        (Elfsight, LightWidget, SnapWidget, etc.)
-                    */}
-                    <iframe 
-                      src="about:blank" 
-                      className="w-full border-none overflow-hidden min-h-[600px]"
-                      title="Instagram Feed Widget"
-                    ></iframe>
+            {/* AREA DO WIDGET ELFSIGHT */}
+            <div className="w-full border border-white/5 bg-zinc-950/50 backdrop-blur-sm min-h-[600px] p-4 flex items-center justify-center">
+                <div className="w-full">
+                    {/* Widget da Elfsight */}
+                    <div 
+                      className="elfsight-app-e54c5a55-fc5c-4eb3-8c8c-63c2ba6cf705" 
+                      // @ts-ignore - Atributo específico do widget
+                      data-elfsight-app-lazy 
+                    ></div>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "motion/react";
-import { Ghost, ShieldAlert } from "lucide-react";
+import { Ghost, ShieldAlert, Share2 } from "lucide-react";
 import { useRef } from "react";
 import { Button } from "@base-ui/react/button";
 
@@ -13,6 +13,22 @@ export function Hero() {
   const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, -150]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  const handleShare = () => {
+    const shareData = {
+      title: "Jason do Semáforo",
+      text: "Confira o Jason do Semáforo - O terror que anima sua festa!",
+      url: window.location.href,
+    };
+
+    if (navigator.share) {
+      navigator.share(shareData).catch((err) => console.log("Error sharing", err));
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      // We could use a more subtle toast here, but for now a simple alert or just feedback is fine
+      // Since I don't have a toast library installed, I'll just change the icon state briefly or something
+    }
+  };
 
   return (
     <section 
@@ -86,9 +102,20 @@ export function Hero() {
             <span className="section-label">Disponível para Eventos</span>
           </div>
 
-          <p className="text-4xl font-black uppercase text-foreground leading-none">
-            PROFISSIONAL EM HORROR E ENTRETENIMENTO
-          </p>
+          <div className="flex items-start justify-between gap-4">
+            <p className="text-4xl font-black uppercase text-foreground leading-none">
+              PROFISSIONAL EM HORROR E ENTRETENIMENTO
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.1, color: "var(--color-primary)" }}
+              whileTap={{ scale: 0.9 }}
+              onClick={handleShare}
+              className="mt-1 p-2 text-muted-foreground transition-colors cursor-pointer"
+              title="Compartilhar site"
+            >
+              <Share2 size={20} />
+            </motion.button>
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <Button
