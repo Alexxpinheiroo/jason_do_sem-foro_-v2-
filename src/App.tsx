@@ -8,7 +8,6 @@ import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { BloodDrips } from "./components/BloodDrips";
 import { AudioControl } from "./components/AudioControl";
-import { WhatsAppButton } from "./components/WhatsAppButton";
 import { Loader } from "./components/Loader";
 
 export default function App() {
@@ -17,7 +16,6 @@ export default function App() {
       <Loader />
       <BloodDrips />
       <AudioControl />
-      <WhatsAppButton />
       <Navbar />
       <main>
         <Hero />

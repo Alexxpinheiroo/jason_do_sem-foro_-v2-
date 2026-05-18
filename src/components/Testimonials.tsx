@@ -39,9 +39,9 @@ export function Testimonials() {
           {TESTIMONIALS.map((t, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.1, duration: 0.6, ease: "easeOut" }}
               viewport={{ once: true }}
               className="bg-black p-12 flex flex-col justify-between group hover:bg-zinc-900 transition-colors"
             >

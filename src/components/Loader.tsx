@@ -80,9 +80,49 @@ export function Loader() {
             transition={{ delay: 0.5 }}
             className="mt-8 text-center px-6"
           >
-            <h1 className="text-2xl font-black uppercase tracking-[0.5em] text-foreground mb-8">
-              O Terror <span className="text-primary animate-pulse">Começou</span>
-            </h1>
+            <motion.h1 
+              animate={{ 
+                opacity: [1, 0.9, 1, 0.8, 1, 0.6, 1],
+                x: [0, -1, 1, -0.5, 0.5, -2, 0],
+                filter: [
+                  "drop-shadow(0 0 0px rgba(235,33,46,0))",
+                  "drop-shadow(0 0 10px rgba(235,33,46,0.5))",
+                  "drop-shadow(0 0 2px rgba(235,33,46,0.2))",
+                  "drop-shadow(0 0 15px rgba(235,33,46,0.8))",
+                  "drop-shadow(0 0 0px rgba(235,33,46,0))"
+                ]
+              }}
+              transition={{ 
+                duration: 2.5, 
+                repeat: Infinity,
+                times: [0, 0.1, 0.2, 0.3, 0.5, 0.55, 1],
+                ease: "easeInOut"
+              }}
+              className="text-2xl font-black uppercase tracking-[0.5em] text-foreground mb-8 select-none"
+            >
+              {"O Terror ".split("").map((char, index) => (
+                <motion.span
+                  key={index}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.7 + index * 0.08 }}
+                >
+                  {char}
+                </motion.span>
+              ))}
+              <span className="text-primary inline-block">
+                {"Começou".split("").map((char, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.5 + index * 0.08 }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
+            </motion.h1>
 
             {isLoaded ? (
               <motion.button

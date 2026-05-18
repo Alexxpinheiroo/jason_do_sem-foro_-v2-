@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "motion/react";
-import { Ghost, ShieldAlert, Share2 } from "lucide-react";
-import { useRef } from "react";
+import { Ghost, ShieldAlert, Share2, Check, MessageCircle } from "lucide-react";
+import { useRef, useState } from "react";
 import { Button } from "@base-ui/react/button";
 
 export function Hero() {
@@ -14,6 +14,8 @@ export function Hero() {
   const y2 = useTransform(scrollYProgress, [0, 1], [0, -150]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  const [copied, setCopied] = useState(false);
+
   const handleShare = () => {
     const shareData = {
       title: "Jason do Semáforo",
@@ -25,8 +27,8 @@ export function Hero() {
       navigator.share(shareData).catch((err) => console.log("Error sharing", err));
     } else {
       navigator.clipboard.writeText(window.location.href);
-      // We could use a more subtle toast here, but for now a simple alert or just feedback is fine
-      // Since I don't have a toast library installed, I'll just change the icon state briefly or something
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
   };
 
@@ -110,31 +112,74 @@ export function Hero() {
               whileHover={{ scale: 1.1, color: "var(--color-primary)" }}
               whileTap={{ scale: 0.9 }}
               onClick={handleShare}
-              className="mt-1 p-2 text-muted-foreground transition-colors cursor-pointer"
-              title="Compartilhar site"
+              className={`mt-1 p-2 transition-colors cursor-pointer rounded-full ${
+                copied ? "text-primary bg-primary/10" : "text-muted-foreground"
+              }`}
+              title={copied ? "Copiado!" : "Compartilhar site"}
             >
-              <Share2 size={20} />
+              {copied ? <Check size={20} /> : <Share2 size={20} />}
             </motion.button>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <Button
-              nativeButton={false}
-              render={<a href="#contato" />}
-              className="px-8 py-4 bg-primary text-white font-bold uppercase tracking-widest text-sm hover:translate-x-1 transition-transform inline-block text-center cursor-pointer"
+            <motion.div
+              whileHover={{ 
+                scale: 1.02,
+                boxShadow: "0 0 25px rgba(235,33,46,0.4)"
+              }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-block"
             >
-              Agendar Evento
-            </Button>
-            <Button
-              nativeButton={false}
-              render={<a href="#servicos" />}
-              className="px-8 py-4 border border-white/10 hover:border-primary text-foreground font-bold uppercase tracking-widest text-sm transition-colors inline-block text-center cursor-pointer"
+              <Button
+                nativeButton={false}
+                render={<a href="#contato" />}
+                className="px-8 py-4 bg-primary text-white font-bold uppercase tracking-widest text-sm inline-block text-center cursor-pointer transition-colors duration-300"
+              >
+                Agendar Evento
+              </Button>
+            </motion.div>
+            <motion.div
+              whileHover={{ 
+                scale: 1.02,
+                boxShadow: "0 0 20px rgba(255,255,255,0.1)"
+              }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-block"
             >
-              Nossos Serviços
-            </Button>
+              <Button
+                nativeButton={false}
+                render={<a href="#servicos" />}
+                className="px-8 py-4 border border-white/10 hover:border-primary text-foreground font-bold uppercase tracking-widest text-sm inline-block text-center cursor-pointer transition-colors duration-300"
+              >
+                Nossos Serviços
+              </Button>
+            </motion.div>
           </div>
         </motion.div>
       </div>
+
+      {/* Sticky WhatsApp Button */}
+      <motion.a
+        href="https://wa.me/555591910911"
+        target="_blank"
+        rel="noopener noreferrer"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 1.5, type: "spring", stiffness: 260, damping: 20 }}
+        whileHover={{ scale: 1.05, x: -5 }}
+        whileTap={{ scale: 0.95 }}
+        className="fixed bottom-8 right-8 z-40 bg-[#25d366] text-white font-black uppercase tracking-[0.2em] px-6 py-3 rounded-full shadow-[0_10px_30px_rgba(37,211,102,0.3)] flex items-center gap-3 hover:bg-[#128c7e] transition-all duration-300 group select-none"
+      >
+        <MessageCircle size={20} className="fill-white" />
+        <span className="text-[10px]">WhatsApp</span>
+        
+        {/* Subtle Pulse Effect */}
+        <motion.span 
+          animate={{ scale: [1, 1.4, 1], opacity: [0.3, 0, 0.3] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-0 rounded-full bg-[#25d366] pointer-events-none" 
+        />
+      </motion.a>
     </section>
   );
 }
