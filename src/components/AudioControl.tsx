@@ -31,6 +31,9 @@ export function AudioControl() {
     };
 
     // Try immediately (might work if already interacted or browser allows)
+    if (audioRef.current) {
+      audioRef.current.volume = 0.3;
+    }
     attemptPlay();
 
     // Listen for first real interaction
