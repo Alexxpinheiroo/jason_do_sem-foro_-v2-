@@ -1,0 +1,8 @@
+{
+  "name": "O Jason do Semáforo",
+  "description": "Contrate o personagem Jason para festas, eventos e animações assustadoramente divertidas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
